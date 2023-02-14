@@ -1,6 +1,7 @@
 import { atom, useAtom } from "jotai";
 import { Suspense } from "react";
 import { createStyles, Paper, Text, Container, Title } from "@mantine/core";
+import Head from "next/head";
 
 const postData = atom(async () => {
   const data = await (await fetch("https://jsonplaceholder.typicode.com/posts")).json();
@@ -10,6 +11,10 @@ const postData = atom(async () => {
 export default function Posts() {
   const [data] = useAtom(postData);
   return (
+    <>
+      <Head>
+        <title>Posts</title>
+      </Head>
       <Container size="lg" px="xs">
         <Header />
         <Suspense fallback={<div>Loading...</div>}>
@@ -18,6 +23,7 @@ export default function Posts() {
           ))}
         </Suspense>
       </Container>
+    </>
   );
 }
 
@@ -57,6 +63,11 @@ const useStyles = createStyles((theme) => ({
       width: 6,
     },
   },
+
+  title: {
+    margin: theme.spacing.md,
+    borderBottom: "1px solid white",
+  },
 }));
 
 function CardGradient({ title, body }: Post) {
@@ -71,4 +82,9 @@ function CardGradient({ title, body }: Post) {
       </Text>
     </Paper>
   );
+}
+
+function Header() {
+  const { classes } = useStyles();
+  return <Title className={classes.title}>Posts</Title>;
 }
