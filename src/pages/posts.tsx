@@ -2,6 +2,9 @@ import { atom, useAtom } from "jotai";
 import { Suspense } from "react";
 import { createStyles, Paper, Text, Container, Title } from "@mantine/core";
 import Head from "next/head";
+import { Inter } from "@next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 const postData = atom(async () => {
   const data = await (await fetch("https://jsonplaceholder.typicode.com/posts")).json();
@@ -43,9 +46,12 @@ const useStyles = createStyles((theme) => ({
     padding: theme.spacing.md,
     paddingLeft: theme.spacing.md,
     margin: theme.spacing.md,
+    background: "var(--card-rgb)",
 
     "&:hover": {
       boxShadow: theme.shadows.md,
+      borderColor: "var(--foreground-rgb)",
+      background: "rgba(var(--card-rgb), 0.1)",
     },
 
     "&::before": {
@@ -73,11 +79,11 @@ const useStyles = createStyles((theme) => ({
 function CardGradient({ title, body }: Post) {
   const { classes } = useStyles();
   return (
-    <Paper withBorder radius="md" className={classes.card}>
-      <Text size="xl" weight={500}>
+    <Paper withBorder radius="sm" className={classes.card} tabIndex={1}>
+      <Text size="xl" weight={500} className={inter.className}>
         {title}
       </Text>
-      <Text size="sm" mt="sm" color="dimmed">
+      <Text size="sm" mt="sm" color="dimmed" className={inter.className}>
         {body}
       </Text>
     </Paper>
@@ -86,5 +92,5 @@ function CardGradient({ title, body }: Post) {
 
 function Header() {
   const { classes } = useStyles();
-  return <Title className={classes.title}>Posts</Title>;
+  return <Title className={`${classes.title} ${inter.className}`}>Posts</Title>;
 }
