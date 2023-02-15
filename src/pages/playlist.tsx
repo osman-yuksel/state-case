@@ -54,15 +54,11 @@ const useStyles = createStyles((theme) => ({
     "&:hover": {
       borderBottom: "1px solid white",
     },
-    backgroundColor: "none",
   },
 
   selected: {
-    backgroundColor: "white",
+    backgroundColor: "white !important",
     color: "black",
-    "&:hover": {
-      color: "white",
-    },
   },
 
   card: {

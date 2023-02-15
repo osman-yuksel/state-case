@@ -61,7 +61,6 @@
 
 .card h2 {
   font-weight: 600;
-  margin-bottom: 0.7rem;
 }
 
 .card p {
@@ -188,10 +187,6 @@
 
   .card {
     padding: 1rem 2.5rem;
-  }
-
-  .card h2 {
-    margin-bottom: 0.5rem;
   }
 
   .center {
