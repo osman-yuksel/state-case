@@ -9,13 +9,16 @@ import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 interface SongState {
+  selected: number | undefined;
   song: Song | undefined;
   changeSong: (index: number) => void;
 }
 
 const useSongStore = create<SongState>((set) => ({
+  selected: undefined,
   song: undefined,
-  changeSong: (index: number) => set((state: any) => ({ song: GetPlaylist()[index] })),
+  changeSong: (index: number) =>
+    set((state: any) => ({ song: GetPlaylist()[index], selected: index })),
 }));
 
 function Playlist() {
@@ -51,6 +54,15 @@ const useStyles = createStyles((theme) => ({
     "&:hover": {
       borderBottom: "1px solid white",
     },
+    backgroundColor: "none",
+  },
+
+  selected: {
+    backgroundColor: "white",
+    color: "black",
+    "&:hover": {
+      color: "white",
+    },
   },
 
   card: {
@@ -68,6 +80,7 @@ const useStyles = createStyles((theme) => ({
 function Songs({ playlist }: { playlist: Song[] }) {
   const { classes } = useStyles();
   const changeSong = useSongStore((state) => state.changeSong);
+  const selected = useSongStore((state) => state.selected);
 
   return (
     <Container size="lg" px="xs" mt="sm">
@@ -87,7 +100,9 @@ function Songs({ playlist }: { playlist: Song[] }) {
               size="lg"
               color="gray"
               key={i}
-              className={`${classes.button} ${inter.className}`}
+              className={`${classes.button} ${inter.className} ${
+                selected === i ? classes.selected : null
+              }`}
               data-array-index={i}
               onClick={() => {
                 changeSong(i);
