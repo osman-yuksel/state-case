@@ -2,6 +2,9 @@ import { GetPlaylist } from "@/utils/playlist";
 import { Card, Text, Button, Group, Flex, Container, createStyles } from "@mantine/core";
 import { create } from "zustand";
 import { Inter } from "@next/font/google";
+import { IconBrandYoutube, IconBrandSpotify } from "@tabler/icons-react";
+import Head from "next/head";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +22,25 @@ function Playlist() {
   const playlist = GetPlaylist() as Song[];
 
   return (
-    <div className="h-screen">
-      <Songs playlist={playlist} />
-      <Details />
-    </div>
+    <>
+      <Head>
+        <title>Playlist</title>
+      </Head>
+      <div className="h-screen">
+        <Container size="lg" px="xs" mt="sm">
+          <div className="p-2 border border-white rounded-md w-24 flex justify-center">
+            <Link href="/" className={`${inter.className}`}>
+              Go back
+            </Link>
+          </div>
+          <h1 className={`text-3xl border-b border-white pb-2 mt-2 ${inter.className}`}>
+            Playlist
+          </h1>
+        </Container>
+        <Songs playlist={playlist} />
+        <Details />
+      </div>
+    </>
   );
 }
 
@@ -107,26 +125,50 @@ function Details() {
   return (
     <Container size="lg" px="xs" mt="sm">
       <Card withBorder p="lg" className={classes.card}>
-        <Group position="left">
-          <Text size="sm" weight={700} className={`${inter.className}`}>
-            {song_name}
-          </Text>
-        </Group>
-        <Text mt="sm" mb="md" color="dimmed" size="xs" className={`${inter.className}`}>
-          {artist}
-        </Text>
-        <Text mt="sm" mb="md" color="dimmed" size="xs" className={`${inter.className}`}>
-          {album}
-        </Text>
-        <Text mt="sm" mb="md" color="dimmed" size="xs" className={`${inter.className}`}>
-          {duration}
-        </Text>
-        <Text mt="sm" mb="md" color="dimmed" size="xs" className={`${inter.className}`}>
-          {release_date}
-        </Text>
-        <Text mt="sm" color="dimmed" size="xs" className={`${inter.className}`}>
-          {genre}
-        </Text>
+        <Flex>
+          <Flex direction="column" align="flex-end" mr={5} w="50%">
+            <Text size="sm" weight={700} className={`${inter.className}`}>
+              {song_name}
+            </Text>
+            <Text mt="sm" mb="sm" color="dimmed" size="xs" className={`${inter.className}`}>
+              {artist}
+            </Text>
+            <Text mt="sm" mb="sm" color="dimmed" size="xs" className={`${inter.className}`}>
+              {album}
+            </Text>
+            <Text mt="sm" mb="sm" color="dimmed" size="xs" className={`${inter.className}`}>
+              {duration}
+            </Text>
+            <Text mt="sm" mb="sm" color="dimmed" size="xs" className={`${inter.className}`}>
+              {release_date}
+            </Text>
+            <Text mt="sm" color="dimmed" size="xs" className={`${inter.className}`}>
+              {genre}
+            </Text>
+          </Flex>
+          <Flex direction="column" ml={5} gap={2}>
+            <Button
+              component="a"
+              href={spotify_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outline"
+              leftIcon={<IconBrandSpotify size={14} />}
+            >
+              Listen on Spotify
+            </Button>
+            <Button
+              component="a"
+              href={youtube_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="outline"
+              leftIcon={<IconBrandYoutube size={14} />}
+            >
+              Listen on Youtube
+            </Button>
+          </Flex>
+        </Flex>
       </Card>
     </Container>
   );
