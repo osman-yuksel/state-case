@@ -2,6 +2,7 @@ import { GetPlaylist } from "@/utils/playlist";
 import { Card, Text, Button, Group, Flex, Container, createStyles } from "@mantine/core";
 import { create } from "zustand";
 import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
 import { IconBrandYoutube, IconBrandSpotify } from "@tabler/icons-react";
 import Head from "next/head";
 import Link from "next/link";
@@ -31,17 +32,17 @@ function Playlist() {
       </Head>
       <div className="h-screen">
         <Container size="lg" px="xs" mt="sm">
-          <div className="p-2 border border-white rounded-md w-24 flex justify-center">
-            <Link href="/" className={`${inter.className}`}>
-              Go back
+          <div className={`${inter.className} ${styles.card}`}>
+            <Link href="/">
+              <span>&lt;-</span> Go back
             </Link>
           </div>
-          <h1 className={`text-3xl border-b border-white pb-2 mt-2 ${inter.className}`}>
+          <h1 className={`text-3xl border-b border-white pb-2 mt-2 mx-4 ${inter.className}`}>
             Playlist
           </h1>
+          <Songs playlist={playlist} />
+          <Details />
         </Container>
-        <Songs playlist={playlist} />
-        <Details />
       </div>
     </>
   );

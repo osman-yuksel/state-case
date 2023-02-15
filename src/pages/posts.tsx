@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { createStyles, Paper, Text, Container, Title } from "@mantine/core";
 import Head from "next/head";
 import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,9 +21,9 @@ export default function Posts() {
         <title>Posts</title>
       </Head>
       <Container size="lg" px="xs" mt="sm">
-        <div className="p-2 border border-white rounded-md w-24 flex justify-center ml-2">
-          <Link href="/" className={`${inter.className}`}>
-            Go back
+        <div className={`${inter.className} ${styles.card}`}>
+          <Link href="/">
+            <span>&lt;-</span> Go back
           </Link>
         </div>
         <Header />
