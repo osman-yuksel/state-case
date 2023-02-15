@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { createStyles, Paper, Text, Container, Title } from "@mantine/core";
 import Head from "next/head";
 import { Inter } from "@next/font/google";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,12 @@ export default function Posts() {
       <Head>
         <title>Posts</title>
       </Head>
-      <Container size="lg" px="xs">
+      <Container size="lg" px="xs" mt="sm">
+        <div className="p-2 border border-white rounded-md w-24 flex justify-center ml-2">
+          <Link href="/" className={`${inter.className}`}>
+            Go back
+          </Link>
+        </div>
         <Header />
         <Suspense fallback={<div>Loading...</div>}>
           {data.map((p, i) => (
